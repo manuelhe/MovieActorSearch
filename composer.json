@@ -1,0 +1,20 @@
+{
+    "name": "manuelhe/MovieActorSearch",
+    "description": "Alert Logic Test.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "manuel",
+            "email": "manuel.he@gmail.com"
+        }
+    ],
+    "require": {
+        "pimple/pimple": "*"
+    },
+    "autoload": {
+        "psr-0": {"Fractal": "app/src/"}
+    },
+    "config": {
+        "vendor-dir": "app/vendor"
+    }
+}

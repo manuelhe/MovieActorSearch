@@ -16,6 +16,10 @@ ini_set('display_errors', 1);
 date_default_timezone_set('America/Bogota');
 $show_stats = FALSE;
 
+//Start session
+session_cache_limiter(false);
+session_start();
+
 // Require vendor autoload libraries
 require 'app/vendor/autoload.php';
 $di = require 'app/config/di.php';

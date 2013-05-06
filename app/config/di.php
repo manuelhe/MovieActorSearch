@@ -26,8 +26,8 @@ $di['config'] = $config + array(
 //Database instance
 $di['tmdb'] = $di->share(function ($c) {
     return new \Mas\Tmdb(array(
-            'api_key' => $c['config']['tmdb.api_key'],
-            'api_url' => $c['config']['tmdb.api_url'],
+            'api_key' => $c['config']['tmdb']['api_key'],
+            'api_url' => $c['config']['tmdb']['api_url'],
             'persistent' => TRUE
     ));
 });

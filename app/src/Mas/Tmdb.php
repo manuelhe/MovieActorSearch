@@ -45,7 +45,7 @@ class Tmdb
      * @param array $config
      */
     public function setConfig(Array $config){
-        $this->config += $config;
+        $this->config = array_merge($this->config, $config);
     }
     /**
      * Instantiate cURL handle connection
@@ -122,6 +122,19 @@ class Tmdb
             throw new \InvalidArgumentException('$id argument is invalid.');
         }
         return $this->exec("person/{$id}/credits?");
+    }
+    /**
+     * Get the general person information for a specific id.
+     * @param int $id Internal TMDB Person ID
+     * @return array List of involved roles of a person by movies
+     * @throws \InvalidArgumentException
+     */
+    public function apiPerson($id){
+        $id = preg_replace('/\D+/', '', $id);
+        if(!$id){
+            throw new \InvalidArgumentException('$id argument is invalid.');
+        }
+        return $this->exec("person/{$id}?");
     }
     /**
      * Get last JSON error

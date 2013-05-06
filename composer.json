@@ -12,7 +12,10 @@
         "pimple/pimple": "*"
     },
     "autoload": {
-        "psr-0": {"Fractal": "app/src/"}
+        "psr-0": {
+            "Mas": "app/src/",
+            "Controller": "app/src/"
+        }
     },
     "config": {
         "vendor-dir": "app/vendor"

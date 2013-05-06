@@ -14,7 +14,7 @@ $script_start_time = microtime(true);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set('America/Bogota');
-$show_stats = FALSE;
+$show_stats = TRUE;
 
 //Start session
 session_cache_limiter(false);

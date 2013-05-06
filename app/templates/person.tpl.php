@@ -80,7 +80,7 @@
                             <div class="img-container">
                                 <img src="<?php echo $person->profile_path?>" alt="<?php echo $person->name?>" class="img-polaroid">
                             </div>
-                            <p><small><?php echo $person->biography?></small></p>
+                            <p><small><?php echo nl2br(trim($person->biography))?></small></p>
                         </div>
                     </div>
                 </div>

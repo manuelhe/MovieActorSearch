@@ -58,8 +58,8 @@ class Person extends \Mas\Controller
                     : $this->config['config']['tmdb']['no_poster_image'];
             $value->character = isset($value->character) && trim($value->character) ? $value->character : 'Unnamed';
             $value->release_date = isset($value->release_date) && trim($value->release_date) ? $value->release_date : 'Undated';
-            $ts = isset($value->release_date) && $value->release_date ? str_replace('-', '', $value->release_date) : $index;
-            $ret[$ts] = $value;
+            $rowIndex = isset($value->release_date) && $value->release_date ? str_replace('-', '', $value->release_date) : $index;
+            $ret[$rowIndex] = $value;
         }
         ksort($ret);
         return $ret;

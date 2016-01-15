@@ -112,29 +112,29 @@ class Tmdb
     }
     /**
      * Get credits for a given Person ID
-     * @param int $id Internal TMDB Person ID
+     * @param int $personId Internal TMDB Person ID
      * @return array List of involved roles of a person by movies
      * @throws \InvalidArgumentException
      */
-    public function apiPersonCredits($id){
-        $id = preg_replace('/\D+/', '', $id);
-        if(!$id){
-            throw new \InvalidArgumentException('$id argument is invalid.');
+    public function apiPersonCredits($personId){
+        $personId = preg_replace('/\D+/', '', $personId);
+        if(!$personId){
+            throw new \InvalidArgumentException('$personId argument is invalid.');
         }
-        return $this->exec("person/{$id}/credits?");
+        return $this->exec("person/{$personId}/credits?");
     }
     /**
      * Get the general person information for a specific id.
-     * @param int $id Internal TMDB Person ID
+     * @param int $personId Internal TMDB Person ID
      * @return array List of involved roles of a person by movies
      * @throws \InvalidArgumentException
      */
-    public function apiPerson($id){
-        $id = preg_replace('/\D+/', '', $id);
-        if(!$id){
-            throw new \InvalidArgumentException('$id argument is invalid.');
+    public function apiPerson($personId){
+        $personId = preg_replace('/\D+/', '', $personId);
+        if(!$personId){
+            throw new \InvalidArgumentException('$personId argument is invalid.');
         }
-        return $this->exec("person/{$id}?");
+        return $this->exec("person/{$personId}?");
     }
     /**
      * Get last JSON error

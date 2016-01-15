@@ -13,10 +13,10 @@ class Search extends \Mas\Controller
         $results = $this->searchPerson($search);
         //Set template
         $template = new \Mas\Template($this->config['config']['templatesDir']);
-        $template->set_var('config', $this->config['config']);
-        $template->set_var('alerts', $this->getAlerts());
-        $template->set_var('search', $search);
-        $template->set_var('results', $results);
+        $template->setVar('config', $this->config['config']);
+        $template->setVar('alerts', $this->getAlerts());
+        $template->setVar('search', $search);
+        $template->setVar('results', $results);
         echo $template->parse('search.tpl.php');
     }
     protected function formValidation(){

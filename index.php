@@ -25,7 +25,7 @@ require 'app/vendor/autoload.php';
 $di = require 'app/config/di.php';
 
 //Init routing class
-$routing = new \Mas\Router($di);
+$routing = new \Mas\Router($di, $_SERVER, $_GET);
 //Run application
 $routing->run();
 

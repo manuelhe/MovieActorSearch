@@ -8,14 +8,17 @@ namespace Mas;
 class Router {
     protected $requestUri = 'home';
     protected $config;
+    protected $server;
+    protected $get;
     /**
      * Class constructor
      *
      * @param \ArrayAccess $config Pimple Dependence Injection object
      */
-    public function __construct(\ArrayAccess $config) {
+    public function __construct(\ArrayAccess $config, $server, $get) {
         $this->requestUri = $this->getRequestUri();
         $this->config = $config;
+        $this->server = $server;
     }
     /**
      * Run app
@@ -52,14 +55,14 @@ class Router {
      * @return string
      */
     protected function getRequestUri() {
-        if (!isset($_SERVER['REQUEST_URI']) OR !isset($_SERVER['SCRIPT_NAME'])) {
+        if (!isset($this->server['REQUEST_URI']) OR !isset($this->server['SCRIPT_NAME'])) {
             return '';
         }
-        $uri = $_SERVER['REQUEST_URI'];
-        if (strpos($uri, $_SERVER['SCRIPT_NAME']) === 0) {
-            $uri = substr($uri, strlen($_SERVER['SCRIPT_NAME']));
-        } elseif (strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0) {
-            $uri = substr($uri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
+        $uri = $this->server['REQUEST_URI'];
+        if (strpos($uri, $this->server['SCRIPT_NAME']) === 0) {
+            $uri = substr($uri, strlen($this->server['SCRIPT_NAME']));
+        } elseif (strpos($uri, dirname($this->server['SCRIPT_NAME'])) === 0) {
+            $uri = substr($uri, strlen(dirname($this->server['SCRIPT_NAME'])));
         }
         if (strncmp($uri, '?/', 2) === 0) {
             $uri = substr($uri, 2);
@@ -67,11 +70,11 @@ class Router {
         $parts = preg_split('#\?#i', $uri, 2);
         $uri = $parts[0];
         if (isset($parts[1])) {
-            $_SERVER['QUERY_STRING'] = $parts[1];
-            parse_str($_SERVER['QUERY_STRING'], $_GET);
+            $this->server['QUERY_STRING'] = $parts[1];
+            parse_str($this->server['QUERY_STRING'], $this->get);
         } else {
-            $_SERVER['QUERY_STRING'] = '';
-            $_GET = array();
+            $this->server['QUERY_STRING'] = '';
+            $this->get = array();
         }
         if ($uri == '/' || empty($uri)) {
             return 'home';
@@ -84,20 +87,20 @@ class Router {
      * Clear invisible or URL dangerous characters
      *
      * @param string $str
-     * @param string $url_encoded
+     * @param string $urlEncoded
      * @return string
      */
-    protected function removeInvisibleCharacters($str, $url_encoded = TRUE) {
-        $non_displayables = array();
+    protected function removeInvisibleCharacters($str, $urlEncoded = TRUE) {
+        $nonDisplayables = array();
         // every control character except newline (dec 10)
         // carriage return (dec 13), and horizontal tab (dec 09)
-        if ($url_encoded) {
-            $non_displayables[] = '/%0[0-8bcef]/'; // url encoded 00-08, 11, 12, 14, 15
-            $non_displayables[] = '/%1[0-9a-f]/'; // url encoded 16-31
+        if ($urlEncoded) {
+            $nonDisplayables[] = '/%0[0-8bcef]/'; // url encoded 00-08, 11, 12, 14, 15
+            $nonDisplayables[] = '/%1[0-9a-f]/'; // url encoded 16-31
         }
-        $non_displayables[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S'; // 00-08, 11, 12, 14-31, 127
+        $nonDisplayables[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S'; // 00-08, 11, 12, 14-31, 127
         do {
-            $str = preg_replace($non_displayables, '', $str, -1, $count);
+            $str = preg_replace($nonDisplayables, '', $str, -1, $count);
         } while ($count);
         return $str;
     }

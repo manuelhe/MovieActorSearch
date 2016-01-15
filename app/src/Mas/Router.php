@@ -19,6 +19,7 @@ class Router {
         $this->requestUri = $this->getRequestUri();
         $this->config = $config;
         $this->server = $server;
+        $this->get = $get;
     }
     /**
      * Run app
